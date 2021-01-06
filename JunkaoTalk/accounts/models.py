@@ -7,15 +7,7 @@ from django.utils import timezone
 
 class Accounts(AbstractUser):
 
-	""" User Model """
-
-	username = None
-	email = models.EmailField(_('email address'), unique=True)
-
-	USERNAME_FIELD = 'email'
-	REQUIRED_FIELDS = []
-
-	objects = AccountManager()
+	""" User's Account Model """
 
 	GENDER_OP = (
 		('M', 'Male'), 
@@ -32,6 +24,16 @@ class Accounts(AbstractUser):
 	friends = models.ManyToManyField("self", blank=True)
 	groups = models.ManyToManyField("self", blank=True)
 
+	# Manager
+
+	username = None
+	email = models.EmailField(_('email address'), unique=True)
+
+	USERNAME_FIELD = 'email'
+	REQUIRED_FIELDS = []
+
+	objects = AccountManager()
+
 	def __str__(self):
 		return self.email
 
@@ -43,9 +45,11 @@ class Accounts(AbstractUser):
 	def groups_count(self):
 		return self.groups.all().count()
 
-# class AccountImgs(models.Model):
-# 	account = models.ManyToOneRel(Accounts, on_delete=CASCADE,  related_name='profile_img')
-	
-# 	isBackground = models.BooleanField(default=False, null=False);
-# 	ImageField = models.ImageField(upload_to='profile/', null=False);
-	
+class AccountImgs(models.Model):
+
+	""" User's Profile Image Model """
+
+	account = models.ForeignKey(Accounts, null=False, related_name='img')
+
+	isBackground = models.BooleanField(default=False, null=False);
+	ImageField = models.ImageField(upload_to='profile/', null=False);

@@ -82,7 +82,7 @@ ROOT_URLCONF = 'JunkaoTalk.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates"),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -148,9 +148,6 @@ ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/?verification=1'
 SITE_ID = 1
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-ACCOUNT_ALLOW_REGISTRATION = env.bool(
-    'DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
-
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
@@ -176,6 +173,11 @@ JWT_AUTH = {
 # Custom user app defaults
 # Select the correct user model
 AUTH_USER_MODEL = 'accounts.Accounts'
+
+ACCOUNT_ALLOW_REGISTRATION = env.bool(
+    'DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
+
+ACCOUNT_ADAPTER = 'accounts.adapters.AccountAdapter'
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'accounts.serializers.AccountSerializer',
