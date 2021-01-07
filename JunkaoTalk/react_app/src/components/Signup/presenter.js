@@ -16,30 +16,30 @@ const Signup = (props, context) => (
 				<div>
 					<input
 						type="email"
+						name="email"
 						placeholder="Email"
 						// placeholder={context.t("Email")}
 						// className={formStyles.textInput}
 						value={props.email_val}
-						onChange={props.input_hander}
-						name="email" />
+						onChange={props.text_input_handler} />
 			
 					<input
 						type="password"
+						name="pw" 
 						placeholder="Password"
 						// placeholder={context.t("Password")}
 						// className={formStyles.textInput}
 						value={props.pw_val}
-						onChange={props.input_hander}
-						name="password" />
+						onChange={props.text_input_handler} />
 					
 					<input
 						type="password"
+						name="confirm_pw" 
 						placeholder="Confirm Password"
 						// placeholder={context.t("Confirm Password")}
 						// className={formStyles.textInput}
 						value={props.confirm_pw_val}
-						onChange={props.input_hander}
-						name="password" />
+						onChange={props.text_input_handler} />
 					
 					<input 
 						type="button"
@@ -53,32 +53,38 @@ const Signup = (props, context) => (
 			{ props.current_stage === 2 && (
 				<div>
 					<input
-						type="file" multiple
+						type="file"
+						name="profile_img"
 						placeholder="Profile Image"
 						// placeholder={context.t("Email")}
 						// className={formStyles.imgInput}
-						value={props.profile_img_val}
-						onChange={props.input_hander}
-						name="profile_img" />
+						onChange={props.img_input_hander} />
 			
 					<input
 						type="text"
+						name="alias"
 						placeholder="Alias"
 						// placeholder={context.t("Alias")}
 						// className={formStyles.textInput}
 						value={props.alias_val}
-						onChange={props.input_hander}
-						name="alias" />
+						onChange={props.text_input_handler} />
 
 					<input
 						type="submit"
 						// value={context.t("Sign up")}
 						// className={formStyles.button}
-						onChange={props.submit_handler} />
+						value="Sign up" />
 				</div>
 			) }
 
 		</form>
+
+		<div>
+			email : {props.email_val}<br/>
+			pw : {props.pw_val}<br/>
+			confirm_pw : {props.confirm_pw_val}<br/>
+			alias : {props.alias_val}<br/>
+		</div>
 
 		{/* <p className={formStyles.terms}>
 			{context.t("By signing up, you agree to our ")}
@@ -94,12 +100,12 @@ Signup.propTypes = {
 	confirm_pw_val	: PropTypes.string.isRequired,
 	profile_img_val	: PropTypes.string.isRequired,
 	alias_val		: PropTypes.string.isRequired,
-	phone_val		: PropTypes.object.isRequired,
 	current_stage	: PropTypes.number.isRequired,
 
-	step_stage		: PropTypes.func.isRequired,
-	input_handler	: PropTypes.func.isRequired,
-	submit_handler	: PropTypes.func.isRequired,
+	step_stage			: PropTypes.func.isRequired,
+	text_input_handler	: PropTypes.func.isRequired,
+	img_input_handler	: PropTypes.func.isRequired,
+	submit_handler		: PropTypes.func.isRequired,
 };
 
 // SignupForm.contextTypes = {

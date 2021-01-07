@@ -4,8 +4,8 @@ import { actionCreators as accountAct } from "../../redux/modules/account";
 
 const mapDispatchToProps = (dispatch, props) => {
 	return {
-		defaultLogin: (email, password) => {
-			dispatch(accountAct.defaultLogin(email, password));
+		logout: () => {
+			dispatch(accountAct.logout());
 		}
 	};
 };

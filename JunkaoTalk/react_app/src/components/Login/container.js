@@ -2,28 +2,27 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Login from "./presenter";
 
-function Container() {
+const Container = (props, context) => {
 
 	const [account, setAccount] = useState({
 		email	 : '',
 		password : ''
 	});
 
+	const { email, password } = account;
+
 	const __input_handler__ = event => {
-		const { target: { value, name } } = event;
+		const { value, name } = event.target;
 		setAccount({
+			...account,
 			[name]: value
 		});
 	};
 
 	const __submit_handler__ = event => {
-		const { default_login } = this.props;
-		
 		event.preventDefault();
-		default_login(email, password);
+		props.defaultLogin(email, password);
 	};
-
-	const { email, password } = account;
 
 	return (
 		<Login
@@ -34,6 +33,10 @@ function Container() {
 		/>
 	);
 
+}
+
+Container.propTypes = {
+	defaultLogin : PropTypes.func.isRequired,
 }
 
 export default Container;

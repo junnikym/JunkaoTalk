@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Signup, { MAX_SIGNUP_STAGE } from "./presenter";
 
-function Container() {
+const Container = (props, context) => {
 	
 	const [page, setPage] = useState({
 		stage : 1
@@ -41,10 +41,8 @@ function Container() {
 	};
 
 	const __submit_handler__ = event => {
-		const { account_creater } = this.props;
-		
 		event.preventDefault();
-		account_creater(email, pw, confirm_pw, profile_img, alias);
+		props.createAccount(email, pw, confirm_pw, profile_img, alias);
 	};
 
 	return (
@@ -58,14 +56,14 @@ function Container() {
 
 			step_stage 			= {__step_stage__}
 			text_input_handler 	= {__text_input_handler__}
-			img_input_hander 	= {__img_input_handler__}
+			img_input_handler 	= {__img_input_handler__}
 			submit_handler 		= {__submit_handler__} />
 	);
 
 }
 
 Container.propTypes = {
-	createAccount : PropTypes.string.isRequired,
+	createAccount : PropTypes.func.isRequired,
 };
 
 export default Container;

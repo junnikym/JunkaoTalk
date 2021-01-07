@@ -15,7 +15,7 @@ class Accounts(AbstractUser):
 		('NOT', 'Nothing')
 	)
 
-	alias = models.CharField(max_length=64, blank=True)
+	alias = models.CharField(max_length=64, null=True)
 	phone = models.CharField(max_length=32, null=True)
 	gender = models.CharField(max_length=80, choices=GENDER_OP, null=True)
 	status_msg = models.CharField(blank=True, max_length=255)
@@ -49,7 +49,8 @@ class AccountImgs(models.Model):
 
 	""" User's Profile Image Model """
 
-	account = models.ForeignKey(Accounts, null=False, related_name='img')
+	account = models.ForeignKey(
+		Accounts, null=False, related_name='img', on_delete=models.CASCADE )
 
 	isBackground = models.BooleanField(default=False, null=False);
 	ImageField = models.ImageField(upload_to='profile/', null=False);

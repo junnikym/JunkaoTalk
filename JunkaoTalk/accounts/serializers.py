@@ -28,8 +28,8 @@ class SignUpSerializer(RegisterSerializer):
 		return {
 			'email': self.validated_data.get('email', ''),
 			'password1': self.validated_data.get('password1', ''),
-			'alias' : self.validated_data.get('alias', ''),
-			'phone' : self.validated
+			'password2': self.validated_data.get('password2', ''),
+			# 'alias' : self.validated_data.get('alias', '')
 		}
 
 	def save(self, request):

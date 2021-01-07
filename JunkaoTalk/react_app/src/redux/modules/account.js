@@ -48,23 +48,24 @@ function defaultLogin(email, password) {
 
 function createAccount(email, pw, confirm_pw, img, alias) {
 	return dispatch => {
+		
 		fetch("/rest-auth/registration/", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
-				email,
-				password1: pw,
-				password2: confirm_pw,
-				img,
-				alias
+				"email"		: email,
+				"password1"	: pw,
+				"password2"	: confirm_pw,
+				// profile_img	: img,
+				// "alias"		: alias
 			})
 		})
 		.then(response => response.json())
 		.then(json => {
 			if (json.token) {
-			dispatch(saveToken(json.token));
+				dispatch(saveToken(json.token));
 			}
 		})
 		.catch(err => console.log(err));
@@ -99,15 +100,19 @@ function reducer(state = initState, action) {
 function applySetToken(state, action) {
 	const { token } = action;
 	localStorage.setItem("jwt", token);
+
+	console.log("set token called");
+
 	return {
 		...state,
-		isLoggedIn: true,
-		toekn: token
+		isLoggedIn	: true,
+		token		: token
 	};
 }
 
 function applyLogout(state, action) {
 	localStorage.removeItem("jwt");
+
 	return {
 		isLoggedIn: false
 	};
@@ -118,6 +123,7 @@ function applyLogout(state, action) {
 
 const actionCreators = {
 	defaultLogin,
+	createAccount,
 	logout,
 };
 

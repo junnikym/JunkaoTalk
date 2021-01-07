@@ -10,12 +10,13 @@ const Login = (props, context) => (
 			method="post" >
 
 			<input
-				type="text"
+				type="email"
+				name="email"
 				value={props.account_email}
 				onChange={props.input_hander}
 				className={formStyles.textInput}
 				// placeholder={context.t("Email")} />
-				placeholder="Email" />
+				placeholder="email" />
 
 			<input
 				type="password"
@@ -44,6 +45,7 @@ const Login = (props, context) => (
 Login.propTypes = {
 	input_hander 	: PropTypes.func.isRequired,
 	submit_handler 	: PropTypes.func.isRequired,
+	
 	account_email 	: PropTypes.string.isRequired,
 	account_pw 		: PropTypes.string.isRequired
 };
