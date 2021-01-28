@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "../../shared/formStyles.scss";
 
 const MAX_SIGNUP_STAGE = 2
 
@@ -7,19 +8,22 @@ const Signup = (props, context) => (
 	<div>
 
 		<form
+			className="form"
 			onSubmit={props.submit_handler}
 			method="post" >
 
 			{/* (1) : Email / Password Satege 
 			--------------------------------------------------*/}
 			{ props.current_stage === 1 && (
-				<div>
+				<div
+					className="formDumy">
+
 					<input
 						type="email"
 						name="email"
 						placeholder="Email"
 						// placeholder={context.t("Email")}
-						// className={formStyles.textInput}
+						className="textInput"
 						value={props.email_val}
 						onChange={props.text_input_handler} />
 			
@@ -28,7 +32,7 @@ const Signup = (props, context) => (
 						name="pw" 
 						placeholder="Password"
 						// placeholder={context.t("Password")}
-						// className={formStyles.textInput}
+						className="textInput"
 						value={props.pw_val}
 						onChange={props.text_input_handler} />
 					
@@ -37,13 +41,14 @@ const Signup = (props, context) => (
 						name="confirm_pw" 
 						placeholder="Confirm Password"
 						// placeholder={context.t("Confirm Password")}
-						// className={formStyles.textInput}
+						className="textInput"
 						value={props.confirm_pw_val}
 						onChange={props.text_input_handler} />
 					
 					<input 
 						type="button"
 						value="Continue"
+						className="button"
 						onClick={props.step_stage} />
 				</div>
 			) }
@@ -51,7 +56,9 @@ const Signup = (props, context) => (
 			{/* (2) : Profile Imange / Alias Stage
 			--------------------------------------------------*/}
 			{ props.current_stage === 2 && (
-				<div>
+				<div
+					className="form">
+						
 					<input
 						type="file"
 						name="profile_img"
@@ -65,26 +72,19 @@ const Signup = (props, context) => (
 						name="alias"
 						placeholder="Alias"
 						// placeholder={context.t("Alias")}
-						// className={formStyles.textInput}
+						className="textInput"
 						value={props.alias_val}
 						onChange={props.text_input_handler} />
 
 					<input
 						type="submit"
 						// value={context.t("Sign up")}
-						// className={formStyles.button}
+						className="button"
 						value="Sign up" />
 				</div>
 			) }
 
 		</form>
-
-		<div>
-			email : {props.email_val}<br/>
-			pw : {props.pw_val}<br/>
-			confirm_pw : {props.confirm_pw_val}<br/>
-			alias : {props.alias_val}<br/>
-		</div>
 
 		{/* <p className={formStyles.terms}>
 			{context.t("By signing up, you agree to our ")}
