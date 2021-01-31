@@ -4,6 +4,9 @@
 
 const SAVE_TOKEN 	= "SAVE_TOKEN";
 const LOGOUT 		= "LOGOUT";
+const FRIEND 		= "FRIEND";
+const UNFRIEND 		= "UNFRIEND";
+const SEARCH		= "SEARCH";
 
 // < Actions Creators >
 // --------------------------------------------------
@@ -19,6 +22,27 @@ function logout() {
 	return {
 		type: LOGOUT
 	};
+}
+
+function setFriend(target_pk) {
+	return {
+		type: FRIEND,
+		target_pk
+	}
+}
+
+function setUnfriend(target_pk) {
+	return {
+		type: UNFRIEND,
+		target_pk
+	}
+}
+
+function setSearch(result_set) {
+	return {
+		type: SEARCH,
+		result_set
+	}
 }
 
 // < API Actions >
@@ -72,6 +96,72 @@ function createAccount(email, pw, confirm_pw, img, alias) {
 	};
 }
 
+function friend(target_pk) {
+	return (dispatch, getState) => {
+		const { account: { token } } = getState();
+
+		fetch(`/test/${target_pk}/friend/`, {
+			method: "POST",
+			headers: {
+				Authorization: `JWT ${token}`,
+				"Content-Type": "application/json"
+			}
+		})
+		.then(response => {
+			if (response.status === 401) {
+				dispatch(logout());
+			}
+			else if (response.ok) {
+				dispatch(setFriend(target_pk));
+			}
+		});
+	};
+}
+
+function unfriend(target_pk) {
+	return (dispatch, getState) => {
+		const { account: { token } } = getState();
+
+		fetch(`/test/${target_pk}/unfriend/`, {
+			method: "POST",
+			headers: {
+				Authorization: `JWT ${token}`,
+				"Content-Type": "application/json"
+			}
+		})
+		.then(response => {
+			if (response.status === 401) {
+				dispatch(logout());
+			}
+			else if (response.ok) {
+				dispatch(setUnfriend(target_pk));
+			}
+		});
+	};
+}
+
+function searchAccount(query) {
+	return (dispatch, getState) => {
+		const { account: { token } } = getState();
+
+		fetch(`/test/search?query=${query}`, {
+			method: "GET",
+			headers: {
+				Authorization: `JWT ${token}`,
+				"Content-Type": "application/json"
+			}
+		})
+		.then(response => {
+			if (response.status === 401) {
+				dispatch(logout());
+			}
+			else if (response.ok) {
+				dispatch(setUnfriend(target_pk));
+			}
+		});
+	}
+}
+
 // < Initial State >
 // --------------------------------------------------
 
@@ -89,6 +179,10 @@ function reducer(state = initState, action) {
 			return applySetToken(state, action);
 		case LOGOUT:
 			return applyLogout(state, action);
+		case FRIEND:
+			return applyFriend(state, action);
+		case UNFRIEND:
+			return applyUnfriend(state, action);
 		default:
 			return state;
 	}
@@ -118,6 +212,52 @@ function applyLogout(state, action) {
 	};
 }
 
+function applyFriend(state, action) {
+	// const { target_pk } = action;
+	// const { friend_list } = state;
+
+	// const result = friend_list.map( elem => {
+	// 	if (elem.pk === target_pk) {
+	// 		return { ...user, following: true };
+	// 	}
+
+	// 	return user;
+	// });
+
+	return {
+		...state,
+	// 	userList: updatedUserList
+	};
+}
+
+function applyUnfriend(state, action) {
+	// const { target_pk } = action;
+	// const { friend_list } = state;
+
+	// const result = friend_list.map( elem => {
+	// 	if (elem.pk === target_pk) {
+	// 		return { ...user, following: true };
+	// 	}
+
+	// 	return user;
+	// });
+
+	return {
+		...state,
+	// 	userList: updatedUserList
+	};
+}
+
+function applySearchAccount(state, action) {
+	const { result_set } = result_set;
+
+	return {
+		...state,
+		list: result
+	}
+}
+
+
 // < Exports >
 // --------------------------------------------------
 
@@ -125,6 +265,9 @@ const actionCreators = {
 	defaultLogin,
 	createAccount,
 	logout,
+	friend,
+	unfriend,
+	searchAccount,
 };
 
 export { actionCreators };

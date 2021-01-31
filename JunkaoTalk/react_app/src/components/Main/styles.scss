@@ -1,0 +1,24 @@
+@import "../../shared/config/_common.scss";
+
+$NevSize: 60px;
+$DefaultListSize: 365px;
+
+.Main {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	float: left;
+
+	.Contents {
+		height: 100%;
+		width: $DefaultListSize;
+
+		background-color: black;
+		
+		.Nav {
+			width: 100%;
+			height: $NevSize;
+			background-color: gray;
+		}
+	}
+}

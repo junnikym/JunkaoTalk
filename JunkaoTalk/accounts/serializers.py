@@ -1,3 +1,4 @@
+from django.db.models import fields
 from allauth.account.adapter import get_adapter
 from rest_framework import serializers
 from rest_framework.response import Response
@@ -9,7 +10,7 @@ from allauth.account.utils import setup_user_email
 
 from .models import Accounts
 
-class AccountSerializer(serializers.ModelSerializer):
+class AccountListSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Accounts
@@ -19,6 +20,16 @@ class AccountSerializer(serializers.ModelSerializer):
 			'alias',
 			'status_msg'
 		)
+
+# class AccounstListSerializer(serializers.ModelSerializer):
+# 	class Meta:
+# 		mdoe = Accounts
+# 		fields = (
+# 			'id',
+# 			'email',
+# 			'alias',
+# 			'status_msg'
+# 		)
 
 class SignUpSerializer(RegisterSerializer):
 

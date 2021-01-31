@@ -16,7 +16,7 @@ class Accounts(AbstractUser):
 	)
 
 	alias = models.CharField(max_length=64, null=True)
-	phone = models.CharField(max_length=32, null=True)
+	phone = models.CharField(max_length=32, null=True, unique=True)
 	gender = models.CharField(max_length=80, choices=GENDER_OP, null=True)
 	status_msg = models.CharField(blank=True, max_length=255)
 	birth = models.DateField(blank=True, null=True)

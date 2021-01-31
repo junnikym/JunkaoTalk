@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Route, Switch } from "react-router-dom";
 
+import Main from "../Main";
 import Auth from "../Auth";
 import Setting from "../Setting"; // for temp
 
@@ -13,9 +14,10 @@ const App = props => {
     <div className="base">
       {[
         props.isLoggedIn ?  <Setting key={1}/> : <PublicRoutes key={1} />,
-        // props.isLoggedIn ? <Navigation key={1} /> : null,
-        // props.isLoggedIn ? <PrivateRoutes key={2} /> : <PublicRoutes key={2} />,
-        // <Footer key={3} />
+        // // props.isLoggedIn ? <Navigation key={1} /> : null,
+        // // props.isLoggedIn ? <PrivateRoutes key={2} /> : <PublicRoutes key={2} />,
+        // // <Footer key={3} />
+        <Main/>
       ]}
     </div>
   )

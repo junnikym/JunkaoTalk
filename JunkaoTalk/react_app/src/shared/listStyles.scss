@@ -1,0 +1,39 @@
+@import "./config/_common.scss";
+
+$ListViewContentHeight: 50px;
+$ListViewPadding_V:5px;
+$ListViewPadding_H:5px;
+
+.List {
+	
+}
+
+.ListView {
+	
+	$ListViewHeight: $ListViewContentHeight - $ListViewPadding_V*2;
+	$ListViewWidth: calc( 100% - #{$ListViewPadding_H} * 2 );
+	
+	width: $ListViewWidth;
+	height: $ListViewHeight;
+	
+	background-color: green;
+
+	padding: $ListViewPadding_V $ListViewPadding_H;
+
+	.SingleThumbnail {
+		display: inline-block;
+
+		height: 100%;
+		width: $ListViewHeight;
+
+		background-color: white;
+
+		border-radius: 50%;
+	}
+
+	.Info {
+		display: inline-block;
+		height: 100%;
+		width: calc(100% - #{$ListViewHeight});
+	}
+}

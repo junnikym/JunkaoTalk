@@ -4,5 +4,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('short_info/<int:pk>/', views.ShortInfo.as_view(), name="short info"),
+    path('<int:target_pk>/friend/', views.Friend.as_view(), name="add friend"),
+    path('<int:target_pk>/unfriend/', views.Unfriend.as_view(), name="unfriend"),
+    path('search/', views.Search.as_view(), name="search accounts"),
 ]
