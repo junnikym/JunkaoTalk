@@ -8,6 +8,16 @@ $SearchBoxMargin_V: 5px;
 $SubmitBtnPadding : 2.5px;
 
 $SearchIconSize: 60%;
+$SearchBoxRadius: 6.5px;
+
+.SearchBoxWapper {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: calc(#{$SearchBoxHeight} + #{$SearchBoxMargin_H});
+	border-bottom: $default-border-size solid $border-color;
+	background-color: $default-color;
+}
 
 .SearchBox {
 	position: relative;
@@ -20,7 +30,7 @@ $SearchIconSize: 60%;
 	overflow: hidden;
 	float: left;
 
-	background-color: aqua;
+	border-radius: $SearchBoxRadius;
 
 	.SubmitBtn {
 		padding: 0;
@@ -33,7 +43,7 @@ $SearchIconSize: 60%;
 		height: $SearchBoxHeight;
 		width: $SearchBoxHeight;
 
-		background-color: aquamarine;
+		background-color: $bright-color;
 		border: 0;
 
 		vertical-align: middle;

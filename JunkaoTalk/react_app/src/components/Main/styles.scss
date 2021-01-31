@@ -12,8 +12,8 @@ $DefaultListSize: 365px;
 	.Contents {
 		height: 100%;
 		width: $DefaultListSize;
-
-		background-color: black;
+		
+		border-right: $default-border-size solid $border-color;
 		
 		.Nav {
 			width: 100%;

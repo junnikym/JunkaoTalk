@@ -11,6 +11,7 @@ const ListView = (props, context) => (
 		</div>
 		
 		<div className="Info">
+			{props.info}
 		</div>
 		
 	</div>
@@ -18,17 +19,11 @@ const ListView = (props, context) => (
 
 const List = (props, context) => (
 	<div className="List">
-
-		<SearchBox/>
-
-		<div className="ListWapper">
-			{
-				props.list?.map(elem => (
-					<ListView
-						/>
-				))
-			}
-		</div>
+		{
+			props.list?.map(elem => (
+				<ListView info={elem.alias}/>
+			))
+		}
 	</div>
 );
 

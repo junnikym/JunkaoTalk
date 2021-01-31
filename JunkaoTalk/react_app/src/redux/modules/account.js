@@ -155,10 +155,11 @@ function searchAccount(query) {
 			if (response.status === 401) {
 				dispatch(logout());
 			}
-			else if (response.ok) {
-				dispatch(setUnfriend(target_pk));
-			}
-		});
+			return response.json();
+		})
+		.then(json => {
+			dispatch(setSearch(json));
+		})
 	}
 }
 
@@ -183,6 +184,8 @@ function reducer(state = initState, action) {
 			return applyFriend(state, action);
 		case UNFRIEND:
 			return applyUnfriend(state, action);
+		case SEARCH:
+			return applySearchAccount(state, action);
 		default:
 			return state;
 	}
@@ -249,11 +252,11 @@ function applyUnfriend(state, action) {
 }
 
 function applySearchAccount(state, action) {
-	const { result_set } = result_set;
+	const { result_set } = action;
 
 	return {
 		...state,
-		list: result
+		list: result_set
 	}
 }
 

@@ -4,10 +4,6 @@ import Main from "./presenter";
 
 const Container = (props, context) => {
 
-	useEffect(() => {
-		props.friend(7);
-	},[]);
-
 	return (
 		<Main />
 	)

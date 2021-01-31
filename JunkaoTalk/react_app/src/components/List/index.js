@@ -5,7 +5,15 @@ import { actionCreators as accountAct } from "../../redux/modules/account";
 const mapStateToProps = (state, props) => {
 	const { account: { list } } = state;
 	
-	return { list:["a", "b", "c"] };
+	return { list: list };
 };
 
-export default connect(mapStateToProps, null)(Container);
+const mapDispatchToProps = (dispatch, props) => {
+	return {
+		searchAccount: (query) => {
+			dispatch(accountAct.searchAccount(query));
+		}
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Container);
