@@ -2,16 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./styles.scss"
 
-import List from "../List";
+import SideBar from "../SideBar";
 
-const Main = (prop, context) => (
+import DefaultProfileImg from "../../shared/img/default_profile.png"
+
+const Main = (props, context) => (
 
 	<span className="Main">
 
-		<div className="Contents">
-			<div className="Nav">nevitaion</div>
-			<List/>
-		</div>
+		<SideBar/>
 
 	</span>
 

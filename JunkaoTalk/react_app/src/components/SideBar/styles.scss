@@ -1,0 +1,34 @@
+@import "../../shared/config/_common.scss";
+
+$NavSize: 60px;
+$DefaultListSize: 365px;
+
+$NavBtnSize : 35px;
+
+.SideBar {
+	height: 100%;
+	width: $DefaultListSize;
+	
+	border-right: $default-border-size solid $border-color;
+	
+	.Nav {
+		width: 100%;
+		height: $NavSize;
+		background-color: gray;
+
+		margin: 0 auto;
+		padding: 0;
+
+		li {
+			display: inline-block; 
+			list-style: none; 
+			width: $NavBtnSize;
+			height: $NavBtnSize;
+
+			img {
+				width: 100%;
+				height: 100%;
+			}
+		}
+	}
+}
