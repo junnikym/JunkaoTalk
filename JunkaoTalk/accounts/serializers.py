@@ -1,4 +1,6 @@
+from django.db import models
 from django.db.models import fields
+from django.db.models.base import Model
 from allauth.account.adapter import get_adapter
 from rest_framework import serializers
 from rest_framework.response import Response
@@ -8,28 +10,36 @@ from rest_auth.registration.serializers import RegisterSerializer
 from allauth.account.adapter import get_adapter
 from allauth.account.utils import setup_user_email
 
-from .models import Accounts
+from . import models
 
-class AccountListSerializer(serializers.ModelSerializer):
+ACCOUNT_COMMON_FILED = (
+	'pk',
+	'email',
+	'alias',
+	'status_msg',
+)
+
+class FriendSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = models.Accounts
+		fields = ACCOUNT_COMMON_FILED
+
+class AccountSerializer(serializers.ModelSerializer):
+
+	friends = serializers.SerializerMethodField()
 
 	class Meta:
-		model = Accounts
-		fields = (
-			'id',
-			'email',
-			'alias',
-			'status_msg'
-		)
+		model = models.Accounts
+		fields = ACCOUNT_COMMON_FILED + tuple(['friends', ])
 
-# class AccounstListSerializer(serializers.ModelSerializer):
-# 	class Meta:
-# 		mdoe = Accounts
-# 		fields = (
-# 			'id',
-# 			'email',
-# 			'alias',
-# 			'status_msg'
-# 		)
+	def get_friends(self, obj):
+		if 'request' in self.context:
+			request = self.context['request']
+
+			if obj in request.user.friends.all():
+				return True
+
+		return False
 
 class SignUpSerializer(RegisterSerializer):
 

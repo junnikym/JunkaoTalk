@@ -8,10 +8,12 @@ const ListView = (props, context) => (
 	<div className="ListView">
 		
 		<div className="SingleThumbnail">
+
 		</div>
 		
 		<div className="Info">
-			{props.info}
+			{ props.title ? (<b> {props.title} </b>) : null }
+			{ props.disc ? (<p> {props.disc} </p>) : null }
 		</div>
 		
 	</div>
@@ -21,7 +23,9 @@ const List = (props, context) => (
 	<div className="List">
 		{
 			props.list?.map(elem => (
-				<ListView info={elem.alias}/>
+				<ListView 
+					title={elem.alias}
+					disc={elem.status_msg}/>
 			))
 		}
 	</div>

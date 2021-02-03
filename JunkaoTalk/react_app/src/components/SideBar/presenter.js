@@ -2,11 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./styles.scss"
 
-import List from "../List";
-
 import DefaultProfileImg from "../../shared/img/default_profile.png"
-import { NavCode } from "./container";
-import SearchBox from "../SearchBox";
+import { NavCode } from "../../shared/enumerator"
 
 const SideBar = (props, context) => (
 
@@ -28,14 +25,14 @@ const SideBar = (props, context) => (
 				<img src={DefaultProfileImg}/></li>
 			<li 
 				onClick={props.nav_switch_handler}
-				value={NavCode.Friends}>
+				value={NavCode.Logout}>
 				<img src={DefaultProfileImg}/></li>
 				
 		</ul>
 
 		{ props.draw_search_box() }
 
-		<List/>
+		{ props.draw_list() }
 	
 	</div>
 

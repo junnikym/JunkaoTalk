@@ -185,7 +185,7 @@ ACCOUNT_ALLOW_REGISTRATION = env.bool(
 ACCOUNT_ADAPTER = 'accounts.adapters.AccountAdapter'
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'accounts.serializers.AccountListSerializer',
+    'USER_DETAILS_SERIALIZER': 'accounts.serializers.AccountSerializer',
 }
 
 # Internationalization

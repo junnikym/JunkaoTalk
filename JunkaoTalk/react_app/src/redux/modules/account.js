@@ -2,11 +2,13 @@
 // < Actions >
 // --------------------------------------------------
 
+import { object } from "prop-types";
+
 const SAVE_TOKEN 	= "SAVE_TOKEN";
 const LOGOUT 		= "LOGOUT";
 const FRIEND 		= "FRIEND";
 const UNFRIEND 		= "UNFRIEND";
-const SEARCH		= "SEARCH";
+const PASS_DATA		= "PASS_DATA";
 
 // < Actions Creators >
 // --------------------------------------------------
@@ -38,10 +40,12 @@ function setUnfriend(target_pk) {
 	}
 }
 
-function setSearch(result_set) {
+function passData(result_set) {
+	console.log(result_set);
+
 	return {
-		type: SEARCH,
-		result_set
+		type: PASS_DATA,
+		result_set 
 	}
 }
 
@@ -94,6 +98,25 @@ function createAccount(email, pw, confirm_pw, img, alias) {
 		})
 		.catch(err => console.log(err));
 	};
+}
+
+function getFriendList() {
+	return (dispatch, getState) => {
+		const { account: { token } } = getState();
+
+		fetch(`/test/friend/`, {
+			method: "GET",
+			headers: {
+				Authorization: `JWT ${token}`,
+				"Content-Type": "application/json"
+			}
+		})
+		.then(response => response.json())
+		.then(json => {
+			dispatch(passData(json));
+		})
+		.catch(err => console.log(err));
+	}
 }
 
 function friend(target_pk) {
@@ -158,7 +181,7 @@ function searchAccount(query) {
 			return response.json();
 		})
 		.then(json => {
-			dispatch(setSearch(json));
+			dispatch(passData(json));
 		})
 	}
 }
@@ -184,8 +207,8 @@ function reducer(state = initState, action) {
 			return applyFriend(state, action);
 		case UNFRIEND:
 			return applyUnfriend(state, action);
-		case SEARCH:
-			return applySearchAccount(state, action);
+		case PASS_DATA:
+			return applyData(state, action);
 		default:
 			return state;
 	}
@@ -197,8 +220,6 @@ function reducer(state = initState, action) {
 function applySetToken(state, action) {
 	const { token } = action;
 	localStorage.setItem("jwt", token);
-
-	console.log("set token called");
 
 	return {
 		...state,
@@ -251,7 +272,7 @@ function applyUnfriend(state, action) {
 	};
 }
 
-function applySearchAccount(state, action) {
+function applyData(state, action) {
 	const { result_set } = action;
 
 	return {
@@ -259,7 +280,6 @@ function applySearchAccount(state, action) {
 		list: result_set
 	}
 }
-
 
 // < Exports >
 // --------------------------------------------------
@@ -271,6 +291,7 @@ const actionCreators = {
 	friend,
 	unfriend,
 	searchAccount,
+	getFriendList
 };
 
 export { actionCreators };

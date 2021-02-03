@@ -4,11 +4,13 @@ import { actionCreators as accountAct } from "../../redux/modules/account";
 
 const mapDispatchToProps = (dispatch, props) => {
 	return {
+		logout: () => {
+			dispatch(accountAct.logout());
+		},
+		
 		searchAccount: (query) => {
 			dispatch(accountAct.searchAccount(query));
 		}
-
-		
 	};
 };
 

@@ -3,12 +3,9 @@ import PropTypes from "prop-types";
 import SideBar from "./presenter";
 
 import SearchBox from "../SearchBox";
+import List from "../List";
 
-export const NavCode = {
-	Friends : 0,
-	Group 	: 1,
-	Setting : 2
-}
+import { NavCode } from "../../shared/enumerator"
 
 const Container = (props, context) => {
 
@@ -31,6 +28,9 @@ const Container = (props, context) => {
 			case NavCode.Friends:
 			case NavCode.Group:
 				setState({ is_search_box_on: true });
+				break;
+			case NavCode.Logout:
+				props.logout();
 				break;
 			default:
 				setState({ is_search_box_on: false });
@@ -75,13 +75,22 @@ const Container = (props, context) => {
 		}
 	}
 
+	/**
+	 * List
+	 * -------------------------
+	 */
+	const __draw_list__ = () => {
+		return <List
+				nav_code = {navState.cursor}/>
+	}
 	
 	// -------------------------
 	return (
 		<SideBar 
 			nav_switch_handler = {__nav_swich_handler__}
 			is_saerch_box_on = {state.is_search_box_on}
-			draw_search_box = {__draw_search_box__} />
+			draw_search_box = {__draw_search_box__}
+			draw_list = {__draw_list__} />
 	);
 
 }
