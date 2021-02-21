@@ -1,0 +1,51 @@
+@import "./config/_common.scss";
+
+$ListViewContentHeight: 50px;
+$ListViewPadding_V:5px;
+$ListViewPadding_H:7.5px;
+
+$ListViewParticleTurm: 7.5px;
+
+$ListViewGap:2.5px;
+
+.List {
+	
+}
+
+.ListView {
+	
+	$ListViewHeight: $ListViewContentHeight - $ListViewPadding_V*2;
+	$ListViewWidth: calc( 100% - #{$ListViewPadding_H} * 2 );
+	
+	width: $ListViewWidth;
+	height: $ListViewHeight;
+	
+	background-color: green;
+
+	padding: $ListViewPadding_V $ListViewPadding_H;
+	margin-bottom: $ListViewGap;
+
+	.SingleThumbnail {
+		display: inline-block;
+
+		height: 100%;
+		width: $ListViewHeight;
+		margin-right: $ListViewPadding_H;
+
+		background-color: white;
+
+		border-radius: 50%;
+	}
+
+	.Info {
+		display: inline-block;
+		height: 100%;
+		margin-left: $ListViewParticleTurm;
+		width: calc(
+			100% - #{$ListViewHeight} 
+				 - #{$ListViewParticleTurm}
+				 - #{$ListViewPadding_H}
+		);
+		text-align: left;
+	}
+}

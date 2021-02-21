@@ -2,8 +2,13 @@
 // < Actions >
 // --------------------------------------------------
 
+import { object } from "prop-types";
+
 const SAVE_TOKEN 	= "SAVE_TOKEN";
 const LOGOUT 		= "LOGOUT";
+const FRIEND 		= "FRIEND";
+const UNFRIEND 		= "UNFRIEND";
+const PASS_DATA		= "PASS_DATA";
 
 // < Actions Creators >
 // --------------------------------------------------
@@ -19,6 +24,29 @@ function logout() {
 	return {
 		type: LOGOUT
 	};
+}
+
+function setFriend(target_pk) {
+	return {
+		type: FRIEND,
+		target_pk
+	}
+}
+
+function setUnfriend(target_pk) {
+	return {
+		type: UNFRIEND,
+		target_pk
+	}
+}
+
+function passData(result_set) {
+	console.log(result_set);
+
+	return {
+		type: PASS_DATA,
+		result_set 
+	}
 }
 
 // < API Actions >
@@ -72,6 +100,92 @@ function createAccount(email, pw, confirm_pw, img, alias) {
 	};
 }
 
+function getFriendList() {
+	return (dispatch, getState) => {
+		const { account: { token } } = getState();
+
+		fetch(`/test/friend/`, {
+			method: "GET",
+			headers: {
+				Authorization: `JWT ${token}`,
+				"Content-Type": "application/json"
+			}
+		})
+		.then(response => response.json())
+		.then(json => {
+			dispatch(passData(json));
+		})
+		.catch(err => console.log(err));
+	}
+}
+
+function friend(target_pk) {
+	return (dispatch, getState) => {
+		const { account: { token } } = getState();
+
+		fetch(`/test/${target_pk}/friend/`, {
+			method: "POST",
+			headers: {
+				Authorization: `JWT ${token}`,
+				"Content-Type": "application/json"
+			}
+		})
+		.then(response => {
+			if (response.status === 401) {
+				dispatch(logout());
+			}
+			else if (response.ok) {
+				dispatch(setFriend(target_pk));
+			}
+		});
+	};
+}
+
+function unfriend(target_pk) {
+	return (dispatch, getState) => {
+		const { account: { token } } = getState();
+
+		fetch(`/test/${target_pk}/unfriend/`, {
+			method: "POST",
+			headers: {
+				Authorization: `JWT ${token}`,
+				"Content-Type": "application/json"
+			}
+		})
+		.then(response => {
+			if (response.status === 401) {
+				dispatch(logout());
+			}
+			else if (response.ok) {
+				dispatch(setUnfriend(target_pk));
+			}
+		});
+	};
+}
+
+function searchAccount(query) {
+	return (dispatch, getState) => {
+		const { account: { token } } = getState();
+
+		fetch(`/test/search?query=${query}`, {
+			method: "GET",
+			headers: {
+				Authorization: `JWT ${token}`,
+				"Content-Type": "application/json"
+			}
+		})
+		.then(response => {
+			if (response.status === 401) {
+				dispatch(logout());
+			}
+			return response.json();
+		})
+		.then(json => {
+			dispatch(passData(json));
+		})
+	}
+}
+
 // < Initial State >
 // --------------------------------------------------
 
@@ -89,6 +203,12 @@ function reducer(state = initState, action) {
 			return applySetToken(state, action);
 		case LOGOUT:
 			return applyLogout(state, action);
+		case FRIEND:
+			return applyFriend(state, action);
+		case UNFRIEND:
+			return applyUnfriend(state, action);
+		case PASS_DATA:
+			return applyData(state, action);
 		default:
 			return state;
 	}
@@ -100,8 +220,6 @@ function reducer(state = initState, action) {
 function applySetToken(state, action) {
 	const { token } = action;
 	localStorage.setItem("jwt", token);
-
-	console.log("set token called");
 
 	return {
 		...state,
@@ -118,6 +236,51 @@ function applyLogout(state, action) {
 	};
 }
 
+function applyFriend(state, action) {
+	// const { target_pk } = action;
+	// const { friend_list } = state;
+
+	// const result = friend_list.map( elem => {
+	// 	if (elem.pk === target_pk) {
+	// 		return { ...user, following: true };
+	// 	}
+
+	// 	return user;
+	// });
+
+	return {
+		...state,
+	// 	userList: updatedUserList
+	};
+}
+
+function applyUnfriend(state, action) {
+	// const { target_pk } = action;
+	// const { friend_list } = state;
+
+	// const result = friend_list.map( elem => {
+	// 	if (elem.pk === target_pk) {
+	// 		return { ...user, following: true };
+	// 	}
+
+	// 	return user;
+	// });
+
+	return {
+		...state,
+	// 	userList: updatedUserList
+	};
+}
+
+function applyData(state, action) {
+	const { result_set } = action;
+
+	return {
+		...state,
+		list: result_set
+	}
+}
+
 // < Exports >
 // --------------------------------------------------
 
@@ -125,6 +288,10 @@ const actionCreators = {
 	defaultLogin,
 	createAccount,
 	logout,
+	friend,
+	unfriend,
+	searchAccount,
+	getFriendList
 };
 
 export { actionCreators };

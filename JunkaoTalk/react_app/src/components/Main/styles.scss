@@ -1,0 +1,13 @@
+@import "../../shared/config/_common.scss";
+
+$NavSize: 60px;
+$DefaultListSize: 365px;
+
+$NavBtnSize : 35px;
+
+.Main {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	float: left;
+}

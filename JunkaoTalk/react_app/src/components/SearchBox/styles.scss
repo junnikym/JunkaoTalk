@@ -1,0 +1,77 @@
+@import "../../shared/config/_common.scss";
+
+$SearchBoxHeight: 25px;
+
+$SearchBoxMargin_H: 10px;
+$SearchBoxMargin_V: 5px;
+
+$SubmitBtnPadding : 2.5px;
+
+$SearchIconSize: 60%;
+$SearchBoxRadius: 6.5px;
+
+.SearchBoxWapper {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: calc(#{$SearchBoxHeight} + #{$SearchBoxMargin_H});
+	border-bottom: $default-border-size solid $border-color;
+	background-color: $default-color;
+}
+
+.SearchBox {
+	position: relative;
+
+	width: calc(100% - #{$SearchBoxMargin_H}*2);
+	height: $SearchBoxHeight;
+
+	margin: $SearchBoxMargin_V $SearchBoxMargin_H;
+
+	overflow: hidden;
+	float: left;
+
+	border-radius: $SearchBoxRadius;
+
+	.SubmitBtn {
+		padding: 0;
+
+		position: absolute;
+
+		top: 0;
+		right: 0;
+
+		height: $SearchBoxHeight;
+		width: $SearchBoxHeight;
+
+		background-color: $bright-color;
+		border: 0;
+
+		vertical-align: middle;
+
+		.BtnImg {
+			position: absolute;
+
+			$margin: calc((100% - #{$SearchIconSize}) / 2);
+			top: $margin;
+			right: $margin;
+
+			height: $SearchIconSize;
+			width: auto;
+		}
+	}
+
+	.QueryBox {
+		position: absolute;
+
+		top: 0;
+		left: 0;
+
+		margin: 0;
+		padding: 0;
+		border: 0;
+
+		width: calc(100% - #{$SearchBoxHeight});
+		height: 100%;
+
+	}
+}

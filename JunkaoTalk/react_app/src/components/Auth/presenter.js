@@ -4,9 +4,17 @@ import React from "react";
 import Login from "../Login";
 import Signup from "../Signup";
 
+import logo from '../../shared/img/logo.png';
+
 const Auth = (props, context) => (
-	<div>
-		<h1> Auth Page // action : {props.action}</h1>
+	<div className="LoginSizeWapper">
+	<div className="LoginSizeInsideWapper">
+
+	<div className="fromComponent">
+
+		<img
+			className="logo" 
+			src={logo}/>
 
 		<div>
 			{props.action === "login" && <Login />}
@@ -19,7 +27,9 @@ const Auth = (props, context) => (
 				<p>
 					{/* {context.t("Have an account?")}{" "} */}
 
-					<span onClick={props.action_switch}>
+					<span
+						className="switchLink"  
+						onClick={props.action_switch}>
 						{/* {context.t("Log in")} */}
 						Log in
 					</span>
@@ -30,7 +40,9 @@ const Auth = (props, context) => (
 				<p>
 					{/* {context.t("Don't have an account?")}{" "} */}
 
-					<span onClick={props.action_switch}>
+					<span
+						className="switchLink" 
+						onClick={props.action_switch}>
 						{/* {context.t("Sign up")} */}
 						Sign up
 					</span>
@@ -38,6 +50,10 @@ const Auth = (props, context) => (
 			)}
 
 		</div>
+	
+	</div>
+
+	</div>
 	</div>
 );
 
