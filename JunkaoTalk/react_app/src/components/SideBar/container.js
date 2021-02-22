@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import SideBar from "./presenter";
+import SideBar, {GroupExtraNav, FriendExtraNav} from "./presenter";
 
 import SearchBox from "../SearchBox";
 import List from "../List";
@@ -10,7 +10,8 @@ import { NavCode } from "../../shared/enumerator"
 const Container = (props, context) => {
 
 	const [state, setState] = useState({
-		is_search_box_on: true
+		is_search_box_on: true,
+		extra_nav: undefined
 	})
 
 	/**
@@ -18,7 +19,8 @@ const Container = (props, context) => {
 	 * -------------------------
 	 */
 	const [navState, setNavState] = useState({
-		cursor : ""
+		cursor : NavCode.Friends,
+		action : undefined
 	})
 
 	useEffect(()=>{
@@ -26,14 +28,16 @@ const Container = (props, context) => {
 		// < Which is Need SearchBox  >
 		switch(navState.cursor) {
 			case NavCode.Friends:
+				setState({ is_search_box_on: true, extra_nav: FriendExtraNav });
+				break;
 			case NavCode.Group:
-				setState({ is_search_box_on: true });
+				setState({ is_search_box_on: true, extra_nav: GroupExtraNav });
 				break;
 			case NavCode.Logout:
 				props.logout();
 				break;
 			default:
-				setState({ is_search_box_on: false });
+				setState({ is_search_box_on: false, extra_nav: undefined });
 				break;
 		}
 
@@ -43,6 +47,7 @@ const Container = (props, context) => {
 		const {value} = event.currentTarget;
 
 		setNavState({
+			...navState,
 			cursor: value
 		});
 	}
@@ -71,7 +76,8 @@ const Container = (props, context) => {
 			return <SearchBox
 					query={query.query}
 					input_handler={__search_input_handler__}
-					submit_handler={__search_submit_handler__} />
+					submit_handler={__search_submit_handler__}
+					/>
 		}
 	}
 
@@ -83,6 +89,28 @@ const Container = (props, context) => {
 		return <List
 				nav_code = {navState.cursor}/>
 	}
+
+	/**
+	 * Extra Nav
+	 * -------------------------
+	 */
+
+	const __extra_nav_switch_handler__ = (event) => {
+		const {value} = event.currentTarget;
+
+		setNavState({
+			...navState,
+			action: value
+		});
+	}
+
+	const __draw_extra_nav__ = () => {
+		return (state.extra_nav
+			? < state.extra_nav
+				extra_nav_switch_handler = {__extra_nav_switch_handler__}/>
+			: undefined
+		)
+	}
 	
 	// -------------------------
 	return (
@@ -90,7 +118,9 @@ const Container = (props, context) => {
 			nav_switch_handler = {__nav_swich_handler__}
 			is_saerch_box_on = {state.is_search_box_on}
 			draw_search_box = {__draw_search_box__}
-			draw_list = {__draw_list__} />
+			draw_list = {__draw_list__} 
+			draw_extra_nav = {__draw_extra_nav__}
+			/>
 	);
 
 }

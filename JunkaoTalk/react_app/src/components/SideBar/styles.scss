@@ -1,6 +1,7 @@
 @import "../../shared/config/_common.scss";
 
-$NavSize: 60px;
+$TopNavSize: 60px;
+$BottomNavSize: 60px;
 $DefaultListSize: 365px;
 
 $NavBtnSize : 35px;
@@ -10,12 +11,55 @@ $NavBtnSize : 35px;
 	width: $DefaultListSize;
 	
 	border-right: $default-border-size solid $border-color;
-	
-	.Nav {
+
+	.Wapper {
 		width: 100%;
-		height: $NavSize;
+		height: 100%;
+	}
+
+	.Contents{
+		height: calc(100% - (#{$BottomNavSize} + #{$TopNavSize}));
+		width: 100%;
+
+		margin: 0 auto;
+		padding: 0;
+	}
+
+	.TopNav {
+		position: relative;
+
+		top: 0;
+		height: $TopNavSize;
+
+		margin: 0 auto;
+		padding: 0;
+
+		overflow: hidden;
+
 		background-color: gray;
 
+		.Title {
+			position: absolute;
+			left: 0;
+		}
+
+		.Options {
+			position: absolute;
+			right: 0;
+		}
+	}
+
+	.BottomNav {
+		bottom: 0;
+		height: $BottomNavSize;
+
+		background-color: gray;
+
+		margin: 0 auto;
+		padding: 0;
+	}
+	
+	.Nav {
 		margin: 0 auto;
 		padding: 0;
 

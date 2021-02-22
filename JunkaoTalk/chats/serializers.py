@@ -1,4 +1,3 @@
-from accounts.models import Accounts
 from django.db import models
 from django.db.models import fields
 from django.db.models.base import Model
@@ -10,8 +9,7 @@ from . import models
 
 class ChatSerializer(serializers.ModelSerializer):
 	class Meta:
-		model = models.Group
+		model = models.Groups
 		fields = (
-			'title',
-			'accounts',
+			'groups'
 		)

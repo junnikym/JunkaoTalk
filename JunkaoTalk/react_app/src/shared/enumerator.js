@@ -5,3 +5,7 @@ export const NavCode = {
 	Logout	: 3,
 	Search	: 10,
 }
+
+export const ExtraNavCode = {
+	AppendFriend: 0,
+}

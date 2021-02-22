@@ -2,8 +2,6 @@
 // < Actions >
 // --------------------------------------------------
 
-import { object } from "prop-types";
-
 const SAVE_TOKEN 	= "SAVE_TOKEN";
 const LOGOUT 		= "LOGOUT";
 const FRIEND 		= "FRIEND";
@@ -104,14 +102,19 @@ function getFriendList() {
 	return (dispatch, getState) => {
 		const { account: { token } } = getState();
 
-		fetch(`/test/friend/`, {
+		fetch(`/api/account/friend/`, {
 			method: "GET",
 			headers: {
 				Authorization: `JWT ${token}`,
 				"Content-Type": "application/json"
 			}
 		})
-		.then(response => response.json())
+		.then(response => {
+			if (response.status === 401) {
+				dispatch(logout());
+			}
+			return response.json();
+		})
 		.then(json => {
 			dispatch(passData(json));
 		})
@@ -123,7 +126,7 @@ function friend(target_pk) {
 	return (dispatch, getState) => {
 		const { account: { token } } = getState();
 
-		fetch(`/test/${target_pk}/friend/`, {
+		fetch(`/api/account/${target_pk}/friend/`, {
 			method: "POST",
 			headers: {
 				Authorization: `JWT ${token}`,
@@ -145,7 +148,7 @@ function unfriend(target_pk) {
 	return (dispatch, getState) => {
 		const { account: { token } } = getState();
 
-		fetch(`/test/${target_pk}/unfriend/`, {
+		fetch(`/api/account/${target_pk}/unfriend/`, {
 			method: "POST",
 			headers: {
 				Authorization: `JWT ${token}`,
@@ -167,7 +170,7 @@ function searchAccount(query) {
 	return (dispatch, getState) => {
 		const { account: { token } } = getState();
 
-		fetch(`/test/search?query=${query}`, {
+		fetch(`/api/account/search?query=${query}`, {
 			method: "GET",
 			headers: {
 				Authorization: `JWT ${token}`,
@@ -295,7 +298,5 @@ const actionCreators = {
 };
 
 export { actionCreators };
-
-// export reducer by default
 
 export default reducer;

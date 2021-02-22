@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .models import Group
+from .models import Groups
 from . import serializers
 
 from common.manager import relManager
@@ -13,7 +13,7 @@ from common.manager import relManager
 class CreateGroup(APIView):
 
     def createGroupModel(**kwargs):
-        model = Group(title=kwargs["title"])
+        model = Groups(title=kwargs["title"])
         
         if "invite" in kwargs:
             for user in kwargs["invite"]:
@@ -24,7 +24,7 @@ class CreateGroup(APIView):
     def ApplyCreateGroup(account, target):
         target.accounts.add(account)
 	
-    @relManager(Group, ApplyCreateGroup, createGroupModel)
+    @relManager(Groups, ApplyCreateGroup, createGroupModel)
     def post(self, request, title, invite, format=None):
         pass
 
